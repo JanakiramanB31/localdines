@@ -1,3 +1,4 @@
 *.log
 config.inc.php
+config.gen.php
 .DS_Store
