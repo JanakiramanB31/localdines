@@ -540,12 +540,18 @@ class pjAdminProducts extends pjAdmin {
               $Image->setAllowedTypes(array('image/png', 'image/gif', 'image/jpg', 'image/jpeg', 'image/pjpeg'));
 
               if ($Image->load($_FILES['image'])) {
+                // echo PJ_UPLOAD_PATH;
+                echo '<pre>';
+                var_dump($Image);
+                // exit;
                 $resp =$Image->isConvertPossible();
 
                 if ($resp['status']===true) {
                   $hash =md5(uniqid(rand(), true));
                   $image_path =PJ_UPLOAD_PATH . 'products/' . $id . '_' . $hash . '.' . $Image->getExtension();
+                  // echo $_FILES['image']["tmp_name"];
                   $Image->loadImage($_FILES['image']["tmp_name"]);
+                  var_dump($Image);
                   $Image->resizeSmart(270, 220);
                   $Image->saveImage($image_path);
                   $data['image']=$image_path;
@@ -772,8 +778,8 @@ class pjAdminProducts extends pjAdmin {
     exit;
   }
 
-  public function pjActionDuplicate($id) {
-  // $id = $this->_get->toInt('id');
+  public function pjActionDuplicate() {
+  $id = $this->_get->toInt('id');
   if ($id) {
     $selectedProduct = pjProductModel::factory()->find($id)->getData();
     // $this->pr($selectedProduct);
@@ -836,7 +842,7 @@ class pjAdminProducts extends pjAdmin {
       // self::jsonResponse(array('status'=> 'OK', 'code'=> 200, 'text'=> 'Featured product has been set.'));
       }
     }
-  // exit;
+  exit;
 }
   public function pjActionDuplicateAll() {
     $allActiveProducts = pjProductModel::factory()->where('status', 1)->where('order_type', 'eatin')->findAll()->getDataPair(null, "id");
