@@ -831,7 +831,7 @@ class pjAdminProducts extends pjAdmin {
         }
           $pjProductExtraModel->commit();
       }
-       // pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminProducts&action=pjActionUpdate&id=$productID");
+       pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminProducts&action=pjActionUpdate&id=$productID");
         
       // self::jsonResponse(array('status'=> 'OK', 'code'=> 200, 'text'=> 'Featured product has been set.'));
       }
