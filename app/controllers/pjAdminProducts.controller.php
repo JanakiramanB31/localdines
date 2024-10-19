@@ -540,18 +540,12 @@ class pjAdminProducts extends pjAdmin {
               $Image->setAllowedTypes(array('image/png', 'image/gif', 'image/jpg', 'image/jpeg', 'image/pjpeg'));
 
               if ($Image->load($_FILES['image'])) {
-                // echo PJ_UPLOAD_PATH;
-                echo '<pre>';
-                var_dump($Image);
-                // exit;
                 $resp =$Image->isConvertPossible();
 
                 if ($resp['status']===true) {
                   $hash =md5(uniqid(rand(), true));
                   $image_path =PJ_UPLOAD_PATH . 'products/' . $id . '_' . $hash . '.' . $Image->getExtension();
-                  // echo $_FILES['image']["tmp_name"];
                   $Image->loadImage($_FILES['image']["tmp_name"]);
-                  var_dump($Image);
                   $Image->resizeSmart(270, 220);
                   $Image->saveImage($image_path);
                   $data['image']=$image_path;
